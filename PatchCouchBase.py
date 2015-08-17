@@ -45,15 +45,11 @@ if __name__ == "__main__":
     main(sys.argv[1:])
 
 
-#print serverlist
-#print cpassword
-#print cuser
-#print osuser
-#print ospassword
+
 
 couchbase2 = serverlist.split(',')
 
-#print couchbase2
+
 
 l = [None]
 
