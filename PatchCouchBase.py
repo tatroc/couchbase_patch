@@ -51,6 +51,8 @@ couchbase2 = serverlist.split(',')
 
 
 
+
+
 l = [None]
 
 
@@ -79,6 +81,29 @@ a = []
 for i in couchbase2:
     x = Server(i, 0, i)
     a.append(x)
+
+# verify login credentials to couch base nodes
+for sv in a:
+    try:
+        url = 'http://' + sv.hostname + ':8091/pools/nodes'
+        req_status = requests.get(url, auth=(cuser, cpassword))
+        if req_status.status_code == 200:
+            msg = "status is " + str(req_status.status_code) + " for " + sv.hostname + " login was successful"
+            print msg
+            syslog.syslog(syslog.LOG_INFO, msg)
+        else:
+            msg = "Connection failed to node: " + sv.hostname + " status code is " + str(req_status.status_code) + " login failed"
+            print msg
+            syslog.syslog(syslog.LOG_ERR, msg)
+            sys.exit(-1)
+    except Exception as e:
+        msg = "Connection failed"
+        print msg
+        syslog.syslog(syslog.LOG_ERR, msg)
+
+
+
+
 
 # easy_install requests
 
