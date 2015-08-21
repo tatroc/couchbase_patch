@@ -25,11 +25,12 @@ def get_couch_status(hostname, rtimeout):
             print msg
             syslog.syslog(syslog.LOG_INFO, msg)
 
-            if future_time > datetime.now():
-                msg = str(datetime.now()) + " : Reboot timeout " + str(rtimeout) + "seconds exceeded, exiting script!"
-                print msg
-                syslog.syslog(syslog.LOG_INFO, msg)
-                sys.exit(-1)
+            if rtimeout != 0:
+                if datetime.now() > future_time:
+                    msg = str(datetime.now()) + " : Reboot timeout " + str(rtimeout) + " seconds exceeded, exiting script!"
+                    print msg
+                    syslog.syslog(syslog.LOG_INFO, msg)
+                    sys.exit(-1)
 
         except Exception as e:
             pass

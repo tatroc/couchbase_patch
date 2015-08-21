@@ -39,7 +39,12 @@ def main(argv):
             global rtimeout
             rtimeout = int(arg)
         else:
-            print "Usage --serverlist"
+            print "--serverlist comma delimited list of couchbase nodes \n" \
+                  "--cpassword couchbase password \n" \
+                  "--cuser couchbase username \n" \
+                  "--ospassword Operating System password \n" \
+                  "--osuser Operating System username e.g. root \n" \
+                  "--rtimeout Server reboot timeout"
 
 if __name__ == "__main__":
     main(sys.argv[1:])
